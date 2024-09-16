@@ -1,6 +1,7 @@
 from flask import Flask, g
 import sqlite3
-from get_db import get_db
+from components.get_db import get_db
+from components.submit_post import submit_post
 
 app = Flask(__name__)
 
@@ -16,3 +17,5 @@ def hello_world():
     print(cur)
 
     return "<p>Hello, World!</p>"
+
+app.add_url_rule('/submit-post', 'submit-post', submit_post, methods=["POST"])
