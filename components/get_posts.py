@@ -6,7 +6,6 @@ def _get_post_count():
     cursor = conn.cursor()
     cursor.execute('SELECT COUNT(*) FROM posts')
     count = cursor.fetchone()[0]
-    conn.close()
     
     return count
 
@@ -32,7 +31,7 @@ def get_posts():
         offset = start
         conn = get_db()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM posts LIMIT ? OFFSET ?', (limit, offset))
+        cursor.execute('SELECT * FROM posts ORDER BY date_created DESC LIMIT ? OFFSET ?', (limit, offset))
         column_names = [description[0] for description in cursor.description]
         rows = cursor.fetchall()
         posts = [dict(zip(column_names, row)) for row in rows]
