@@ -1,10 +1,12 @@
 from flask import Flask, g
+from flask_cors import CORS
 import sqlite3
 from components.get_db import get_db
 from components.submit_post import submit_post
 from components.get_posts import get_posts
 
 app = Flask(__name__)
+CORS(app)
 
 @app.teardown_appcontext
 def close_connection(exception):
